@@ -327,6 +327,24 @@ func toJSONCompatible(v interface{}) interface{} {
 			m2[fmt.Sprint(k)] = toJSONCompatible(v2)
 		}
 		return m2
+	case map[string]interface{}:
+		m2 := make(map[string]interface{}, len(x))
+		for k, v2 := range x {
+			m2[k] = toJSONCompatible(v2)
+		}
+		return m2
+	case map[int]int:
+		m2 := make(map[string]interface{}, len(x))
+		for k, v2 := range x {
+			m2[fmt.Sprint(k)] = v2
+		}
+		return m2
+	case map[int]interface{}:
+		m2 := make(map[string]interface{}, len(x))
+		for k, v2 := range x {
+			m2[fmt.Sprint(k)] = toJSONCompatible(v2)
+		}
+		return m2
 	case []interface{}:
 		for i, u := range x {
 			x[i] = toJSONCompatible(u)
